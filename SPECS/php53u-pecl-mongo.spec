@@ -3,6 +3,9 @@
 %{!?php_extdir: %{expand: %%global php_extdir %(php-config --extension-dir)}}
 
 %global pecl_name mongo
+%global real_name php-pecl-mongo
+%global basever 1
+%global php_base php53u
 
 # RPM 4.8
 %{?filter_provides_in: %filter_provides_in %{php_extdir}/.*\.so$}
@@ -12,9 +15,9 @@
 
 
 Summary:      PHP MongoDB database driver
-Name:         php53u-pecl-mongo
+Name:         %{php_base}-pecl-mongo
 Version:      1.3.2
-Release:      1.ius%{?dist}
+Release:      2.ius%{?dist}
 License:      ASL 2.0
 Group:        Development/Languages
 URL:          http://pecl.php.net/package/%{pecl_name}
@@ -23,19 +26,21 @@ Source:       http://pecl.php.net/get/%{pecl_name}-%{version}.tgz
 
 BuildRoot:    %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-BuildRequires: php53u-devel, php53u-pear
+BuildRequires: %{php_base}-devel, %{php_base}-pear
 
 Requires(post): %{__pecl}
 Requires(postun): %{__pecl}
 
 %if 0%{?php_zend_api:1}
-Requires:     php53u(zend-abi) = %{php_zend_api}
-Requires:     php53u(api) = %{php_core_api}
+Requires:     %{php_base}(zend-abi) = %{php_zend_api}
+Requires:     %{php_base}(api) = %{php_core_api}
 %else
-Requires:     php53u-api = %{php_apiver}
+Requires:     %{php_base}-api = %{php_apiver}
 %endif
 
-Provides:     php53u-pecl(%{pecl_name}) = %{version}-%{release}
+Provides:     %{real_name} = %{version}-%{release}
+Provides:     php-pecl(%{pecl_name}) = %{version}-%{release}
+Provides:     %{php_base}-pecl(%{pecl_name}) = %{version}-%{release}
 
 
 %description
@@ -141,6 +146,9 @@ cd %{pecl_name}-%{version}
 
 
 %changelog
+* Wed Nov 06 2013 Ben Harper <ben.harper@rackspace.com> - 1.3.2-2
+- adding provides per LP bug 1248285
+
 * Mon Dec 31 2012 Ben Harper <ben.harper@rackspace.com> - 1.3.2-1
 - porting from EPEL
 - upsteam 1.3.2 
