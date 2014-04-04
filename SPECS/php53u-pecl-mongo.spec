@@ -132,8 +132,8 @@ cd %{pecl_name}-%{version}
 # only check if build extension can be loaded
 
 %{_bindir}/php \
-    -n -d extension_dir=modules \
-    -d extension=%{pecl_name}.so \
+    -n -d extension=json.so  \
+    -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so \
     -i | grep "MongoDB Support => enabled"
 
 
@@ -148,6 +148,7 @@ cd %{pecl_name}-%{version}
 %changelog
 * Fri Apr 04 2014 Ben Harper <ben.harper@rackspace.com> - 1.5.0-1.ius
 - Latest sources from upstream
+- update check based on remi's 1.5.0alpha1
 
 * Fri Jan 24 2014 Ben Harper <ben.harper@rackspace.com> - 1.4.5-1.ius
 - Latest sources from upstream
