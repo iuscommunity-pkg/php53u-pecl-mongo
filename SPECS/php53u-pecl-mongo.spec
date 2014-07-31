@@ -16,7 +16,7 @@
 
 Summary:      PHP MongoDB database driver
 Name:         %{php_base}-pecl-mongo
-Version:      1.5.4
+Version:      1.5.5
 Release:      1.ius%{?dist}
 License:      ASL 2.0
 Group:        Development/Languages
@@ -46,6 +46,7 @@ Provides:     %{php_base}-pecl(%{pecl_name}) = %{version}-%{release}
 %description
 This package provides an interface for communicating with the MongoDB database
 in PHP.
+
 
 %prep 
 %setup -c -q
@@ -146,6 +147,9 @@ cd %{pecl_name}-%{version}
 
 
 %changelog
+* Thu Jul 31 2014 Carl George <carl.george@rackspace.com> - 1.5.5-1.ius
+- Latest sources from upstream
+
 * Wed Jun 18 2014 Carl George <carl.george@rackspace.com> - 1.5.4-1.ius
 - Latest sources from upstream
 
